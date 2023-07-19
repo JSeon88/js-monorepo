@@ -3,11 +3,7 @@
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "eslint-config-prettier"
-  ],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "plugins": ["simple-import-sort"],
   "ignorePatterns": ["node_modules/", "dist/", "*.html"],
   "settings": {
