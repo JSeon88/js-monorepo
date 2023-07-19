@@ -1,0 +1,77 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "eslint-config-prettier"
+  ],
+  "plugins": ["simple-import-sort"],
+  "ignorePatterns": ["node_modules/", "dist/", "*.html"],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["", "./public"],
+          ["@", "./src"]
+        ]
+      }
+    }
+  },
+  "rules": {
+    // 변수 타입 추론시 타입 지정 제거 규칙 비활성화
+    "@typescript-eslint/no-inferrable-types": "off",
+    // 타입 정의 설정
+    "@typescript-eslint/typedef": [
+      "error",
+      {
+        // 화살표 함수 매개변수 타입 지정 on
+        "arrowParameter": true,
+        // 변수 타입 지정 off
+        "variableDeclaration": false,
+        // 구조분해 할당 타입 지정 on
+        "arrayDestructuring": true,
+        // 함수 파라미터 매개변수 지정 on
+        "parameter": true,
+        // 클래스, 인터페이스, 타입 속성 타입 지정 on
+        "propertyDeclaration": true,
+        // 함수 표현식을 사용한 변수 선언시 타입 지정
+        "variableDeclarationIgnoreFunction": true
+      }
+    ],
+    // 함수 리턴 타입 정의 필수
+    "@typescript-eslint/explicit-function-return-type": "error",
+    // @ts-ignore 사용 허용
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    // import 정렬 규칙
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // 부작용(import 문 자체에서 동작하는 코드)을 포함하는 import, 주로 CSS 파일 등이 해당
+          ["^\\u0000"],
+          // node_modules
+          ["^(\\w)", "^@\\w"],
+          // @ 또는 문자로 시작하는 패키지 import문
+          ["^@?\\w"],
+          // @로 시작하는 내부 패키지 import문
+          ["^@\\w"],
+          // ..로 시작하는 import문으로, 상위 디렉토리로의 상대 경로
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+          // 현재 디렉토리와 관련된 import문으로, 현재 디렉토리의 하위 디렉토리로의 상대 경로
+          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          // CSS 파일 또는 SCSS 파일과 같은 스타일 파일 import문
+          ["^.+\\.s?css$"],
+          // 프로젝트의 루트 디렉토리로부터의 절대 경로 import문
+          ["^/"],
+          // 파일 시스템의 절대 경로 import
+          ["^"]
+        ]
+      }
+    ]
+  }
+}
